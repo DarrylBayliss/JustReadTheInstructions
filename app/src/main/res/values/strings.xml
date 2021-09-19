@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Just Read the Instructions</string>
+    <string name="title_activity_launches_detail">LaunchesDetailActivity</string>
+</resources>
