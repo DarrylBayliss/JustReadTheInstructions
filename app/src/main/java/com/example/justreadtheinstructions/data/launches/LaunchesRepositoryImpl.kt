@@ -7,6 +7,8 @@ class LaunchesRepositoryImpl @Inject constructor(private val spaceXService: Spac
     LaunchesRepository {
 
     override suspend fun getLaunches(): List<LaunchDTO> {
-        return spaceXService.getLaunches()
+        return spaceXService
+            .getLaunches()
+            .reversed() // SpaceX API returns the earliest launches first, this changes the order so the most recent launches come first
     }
 }

@@ -7,7 +7,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Blue
@@ -20,7 +22,10 @@ import androidx.compose.ui.unit.dp
 import com.example.justreadtheinstructions.R
 import com.example.justreadtheinstructions.domain.Launch
 import com.example.justreadtheinstructions.presentation.theme.JustReadTheInstructionsTheme
+import com.example.justreadtheinstructions.util.DateFormatting
 import com.skydoves.landscapist.coil.CoilImage
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class LaunchesDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +35,7 @@ class LaunchesDetailActivity : ComponentActivity() {
 
         setContent {
             JustReadTheInstructionsTheme {
-                LaunchDetail(launch = launch)
+                DetailScaffolding(launch = launch)
             }
         }
     }
@@ -38,6 +43,27 @@ class LaunchesDetailActivity : ComponentActivity() {
     companion object {
         const val LAUNCH_EXTRA = "launch"
     }
+}
+
+@Composable
+fun DetailScaffolding(launch: Launch) {
+    Scaffold(
+        topBar = {
+            DetailMenuBar(launch.name)
+        },
+        content = {
+            LaunchDetail(launch = launch)
+        })
+}
+
+@Composable
+fun DetailMenuBar(launchName: String) {
+
+    val context = LocalContext.current
+
+    TopAppBar(title = {
+        Text(launchName)
+    })
 }
 
 @Composable
@@ -72,7 +98,7 @@ fun LaunchDetail(launch: Launch) {
 
             Row(Modifier.padding(top = 4.dp)) {
                 Text(text = "Launch Date:", fontWeight = FontWeight.Bold)
-                Text(text = launch.date, Modifier.padding(start = 4.dp))
+                Text(text = DateFormatting.launchDate(launch.date), Modifier.padding(start = 4.dp))
             }
 
             Row(Modifier.padding(top = 4.dp)) {
@@ -80,21 +106,23 @@ fun LaunchDetail(launch: Launch) {
                 Text(text = launch.details ?: "Not available", Modifier.padding(start = 4.dp))
             }
 
-            Row(Modifier.padding(top = 4.dp)) {
-                Text(
-                    text = "Webcast:",
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = launch.webcast.toString(),
-                    Modifier
-                        .clickable {
-                            val openUrlIntent = Intent(Intent.ACTION_VIEW, launch.webcast)
-                            context.startActivity(openUrlIntent)
+            if (launch.webcast != null) {
+                Row(Modifier.padding(top = 4.dp)) {
+                    Text(
+                        text = "Webcast:",
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(text = launch.webcast.toString(),
+                        Modifier
+                            .clickable {
+                                val openUrlIntent = Intent(Intent.ACTION_VIEW, launch.webcast)
+                                context.startActivity(openUrlIntent)
 
-                        }
-                        .padding(start = 4.dp),
-                    color = Blue
-                )
+                            }
+                            .padding(start = 4.dp),
+                        color = Blue
+                    )
+                }
             }
         }
     }
