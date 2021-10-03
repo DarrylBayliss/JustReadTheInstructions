@@ -30,3 +30,8 @@ Coil (Jetpack compose image loading)
 Retrofit / okhttp (Networking)
 Moshi (Json serialisation / deserialisation)
 Hilt (Dependency Injection)
+Android X Splash Screen API
+
+# Icon Logo
+
+The App Icon is made by [Freepik](https://www.freepik.com) from [flaticon](https://www.freepik.com).
