@@ -24,4 +24,12 @@
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
         <item name="postSplashScreenTheme">@style/Theme.JustReadTheInstructions.NoActionBar</item>
     </style>
+
+    <style name="Theme.App.SplashScreen.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <item name="appWidgetRadius">8dp</item>
+        <item name="appWidgetPadding">4dp</item>
+        <item name="appWidgetInnerRadius">4dp</item>
+    </style>
+
+    <style name="Theme.App.SplashScreen.AppWidgetContainer" parent="Theme.App.SplashScreen.AppWidgetContainerParent" />
 </resources>
